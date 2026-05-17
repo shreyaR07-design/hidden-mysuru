@@ -1,0 +1,191 @@
+{
+  "entities": {
+    "artisan": {
+      "title": "Artisan Seller",
+      "description": "Represents an artisan seller in the system.",
+      "type": "object",
+      "properties": {
+        "artisanName": { "type": "string", "description": "Full name of the artisan." },
+        "email": { "type": "string", "format": "email", "description": "Login email for the artisan." },
+        "phoneNumber": { "type": "string", "description": "Contact phone number." },
+        "craftType": { "type": "string", "description": "Primary craft (e.g., Inlay, Pottery)." },
+        "experience": { "type": "string", "description": "Years of experience." },
+        "location": { "type": "string", "description": "Workshop location." },
+        "bio": { "type": "string", "description": "Story and background of the artisan." },
+        "profileImage": { "type": "string", "description": "URL to the profile picture." },
+        "workshopImages": { "type": "array", "description": "List of workshop image URLs." },
+        "verificationStatus": { "type": "string", "enum": ["pending", "verified", "rejected"], "description": "Status of artisan verification." },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["artisanName", "email", "craftType", "location"]
+    },
+    "product": {
+      "title": "Artisan Product",
+      "description": "A handcrafted product listed by an artisan.",
+      "type": "object",
+      "properties": {
+        "artisanId": { "type": "string", "description": "Reference to the artisan who created this." },
+        "productName": { "type": "string", "description": "Name of the product." },
+        "description": { "type": "string", "description": "Detailed description." },
+        "price": { "type": "number", "description": "Price in INR." },
+        "stock": { "type": "integer", "description": "Available inventory." },
+        "category": { "type": "string", "description": "Product category." },
+        "productImages": { "type": "array", "description": "List of product image URLs." },
+        "handmadeDetails": { "type": "string", "description": "Information about the handcrafted process." },
+        "deliveryTime": { "type": "string", "description": "Estimated time to deliver." },
+        "featuredProduct": { "type": "boolean", "description": "Whether highlighted in the shop." },
+        "ratings": { "type": "number", "description": "Average rating." },
+        "reviewsCount": { "type": "integer", "description": "Number of reviews received." }
+      },
+      "required": ["artisanId", "productName", "price", "stock", "category"]
+    },
+    "order": {
+      "title": "Order",
+      "description": "A purchase order for one or more products.",
+      "type": "object",
+      "properties": {
+        "artisanId": { "type": "string", "description": "Artisan receiving the order." },
+        "customerId": { "type": "string", "description": "UID of the buyer." },
+        "customerEmail": { "type": "string" },
+        "customerName": { "type": "string" },
+        "productId": { "type": "string" },
+        "quantity": { "type": "integer" },
+        "status": { "type": "string", "enum": ["pending", "shipped", "delivered", "cancelled"] },
+        "totalAmount": { "type": "number" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["artisanId", "customerId", "productId", "quantity", "status"]
+    },
+    "user_profile": {
+      "title": "User Profile",
+      "description": "Public profile for all users (customers and artisans).",
+      "type": "object",
+      "properties": {
+        "displayName": { "type": "string" },
+        "email": { "type": "string" },
+        "role": { "type": "string", "enum": ["customer", "artisan", "admin"] },
+        "artisanId": { "type": "string", "description": "Present if role is artisan." },
+        "lastActive": { "type": "string", "format": "date-time" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      }
+    },
+    "analytics_event": {
+      "title": "Analytics Event",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "type": { "type": "string", "enum": ["click", "view", "interaction", "search"] },
+        "category": { "type": "string" },
+        "action": { "type": "string" },
+        "label": { "type": "string" },
+        "value": { "type": "number" },
+        "path": { "type": "string" },
+        "timestamp": { "type": "string", "format": "date-time" },
+        "device": { "type": "string" },
+        "location": { "type": "string" }
+      }
+    },
+    "visit_log": {
+      "title": "Visit Log",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "path": { "type": "string" },
+        "referrer": { "type": "string" },
+        "duration": { "type": "number" },
+        "device": { "type": "string" },
+        "browser": { "type": "string" },
+        "os": { "type": "string" },
+        "timestamp": { "type": "string", "format": "date-time" }
+      }
+    },
+    "activity_log": {
+      "title": "Activity Log",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "username": { "type": "string" },
+        "role": { "type": "string" },
+        "activityType": { "type": "string" },
+        "activityMessage": { "type": "string" },
+        "pageVisited": { "type": "string" },
+        "productId": { "type": "string" },
+        "placeId": { "type": "string" },
+        "timestamp": { "type": "string", "format": "date-time" },
+        "deviceType": { "type": "string" },
+        "location": { "type": "string" }
+      }
+    },
+    "vlog": {
+      "title": "Heritage Vlog",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "uploaderId": { "type": "string" },
+        "title": { "type": "string" },
+        "description": { "type": "string" },
+        "thumbnailUrl": { "type": "string" },
+        "videoUrl": { "type": "string" },
+        "youtubeLink": { "type": "string" },
+        "creatorName": { "type": "string" },
+        "relatedPlace": { "type": "string" },
+        "category": { "type": "string" },
+        "likes": { "type": "integer" },
+        "shares": { "type": "integer" },
+        "views": { "type": "integer" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["title", "creatorName"]
+    },
+    "session": {
+      "title": "User Session",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "loginTime": { "type": "string", "format": "date-time" },
+        "logoutTime": { "type": "string", "format": "date-time" },
+        "device": { "type": "string" },
+        "browser": { "type": "string" },
+        "ipAddress": { "type": "string" }
+      }
+    }
+  },
+  "firestore": {
+    "/artisans/{artisanId}": {
+      "schema": "artisan",
+      "description": "Detailed profiles for artisans."
+    },
+    "/products/{productId}": {
+      "schema": "product",
+      "description": "Inventory of handcrafted items."
+    },
+    "/orders/{orderId}": {
+      "schema": "order",
+      "description": "Transaction logs for sales."
+    },
+    "/users/{userId}": {
+      "schema": "user_profile",
+      "description": "Central user registry for roles."
+    },
+    "/analytics/{eventId}": {
+      "schema": "analytics_event",
+      "description": "Raw interaction events."
+    },
+    "/visits/{visitId}": {
+      "schema": "visit_log",
+      "description": "Page view and session logs."
+    },
+    "/activity_logs/{logId}": {
+      "schema": "activity_log",
+      "description": "Critical user actions (login, upload, etc)."
+    },
+    "/vlogs/{vlogId}": {
+      "schema": "vlog",
+      "description": "Community heritage stories."
+    },
+    "/sessions/{sessionId}": {
+      "schema": "session",
+      "description": "User login sessions."
+    }
+  }
+}

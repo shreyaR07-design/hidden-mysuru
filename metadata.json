@@ -1,0 +1,6 @@
+{
+  "name": "Hidden Mysuru",
+  "description": "Discover the hidden heritage, authentic food, and local artisans of Mysuru through this premium tourism platform.",
+  "requestFramePermissions": ["geolocation"],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
